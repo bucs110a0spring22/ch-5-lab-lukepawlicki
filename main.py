@@ -31,7 +31,29 @@ import time
 #########################################################
 #                   Your Code Goes Below                #
 #########################################################
-
+darty = turtle.Turtle()
+def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
+  darty.up()
+  darty.goto(top_left_x,top_left_y)
+  darty.down()
+  for i in range(4):
+    darty.forward(width)
+    darty.right(90)
+def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
+  darty.up()
+  darty.goto(x_start,y_start)
+  darty.down()
+  darty.goto(x_end,y_end)
+def drawCircle(myturtle=None, radius=0):
+  darty.goto(0,-1)
+  darty.circle(radius, steps=100)
+def setUpDartboard(myscreen=None, myturtle=None):
+  turtle.setworldcoordinates(-1,-1,1,1)
+  drawSquare(myturtle=darty, width=2, top_left_x=-1, top_left_y=1)
+  drawLine(darty,-1,0,1,0)
+  drawLine(darty,0,-1,0,1)
+  drawCircle(darty,1)
+  turtle.exitonclick()
 
 
 #########################################################
