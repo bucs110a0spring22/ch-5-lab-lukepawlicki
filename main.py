@@ -82,8 +82,6 @@ def playDarts(myturtle=None):
     print('Player 2 Wins!')
   elif accum_1 == accum_2:
     print('The Game is a Tie!')
-  print(accum_1)
-  print(accum_2)
 def montePi(myturtle=None, number_darts=0):
   inside_count = 0
   for i in range(number_darts):
