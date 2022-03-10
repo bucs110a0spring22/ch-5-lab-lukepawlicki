@@ -31,31 +31,69 @@ import time
 #########################################################
 #                   Your Code Goes Below                #
 #########################################################
-darty = turtle.Turtle()
 def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
-  darty.up()
-  darty.goto(top_left_x,top_left_y)
-  darty.down()
+  myturtle.up()
+  myturtle.goto(top_left_x,top_left_y)
+  myturtle.down()
   for i in range(4):
-    darty.forward(width)
-    darty.right(90)
+    myturtle.forward(width)
+    myturtle.right(90)
 def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
-  darty.up()
-  darty.goto(x_start,y_start)
-  darty.down()
-  darty.goto(x_end,y_end)
+  myturtle.up()
+  myturtle.goto(x_start,y_start)
+  myturtle.down()
+  myturtle.goto(x_end,y_end)
 def drawCircle(myturtle=None, radius=0):
-  darty.goto(0,-1)
-  darty.circle(radius, steps=100)
+  myturtle.goto(0,-1)
+  myturtle.circle(radius, steps=100)
 def setUpDartboard(myscreen=None, myturtle=None):
   turtle.setworldcoordinates(-1,-1,1,1)
-  drawSquare(myturtle=darty, width=2, top_left_x=-1, top_left_y=1)
-  drawLine(darty,-1,0,1,0)
-  drawLine(darty,0,-1,0,1)
-  drawCircle(darty,1)
-  turtle.exitonclick()
-
-
+  drawSquare(myturtle, width=2, top_left_x=-1, top_left_y=1)
+  drawLine(myturtle,-1,0,1,0)
+  drawLine(myturtle,0,-1,0,1)
+  drawCircle(myturtle,1)
+def throwDart(myturtle=None):
+  x = random.uniform(-1,1)
+  y = random.uniform(-1,1)
+  myturtle.up()
+  myturtle.goto(x,y)
+  if myturtle.distance(0,0) <= 1:
+    myturtle.dot('blue')
+  else:
+    myturtle.dot('red')
+def isInCircle(myturtle=None, circle_center_x=0, circle_center_y=0, radius=0):
+  if myturtle.distance(circle_center_x,circle_center_y) <= 1:
+    return True
+  else:
+    return False
+def playDarts(myturtle=None):
+  accum_1 = 0
+  accum_2 = 0
+  for i in range(10):
+    throwDart(myturtle)
+    if isInCircle(myturtle,0,0,0):
+      accum_1 = accum_1 + 1
+    throwDart(myturtle)
+    if isInCircle(myturtle,0,0,0):
+      accum_2 = accum_2 + 1
+  if accum_1 > accum_2:
+    print('Player 1 Wins!')
+  elif accum_1 < accum_2:
+    print('Player 2 Wins!')
+  elif accum_1 == accum_2:
+    print('The Game is a Tie!')
+  print(accum_1)
+  print(accum_2)
+def montePi(myturtle=None, number_darts=0):
+  inside_count = 0
+  for i in range(number_darts):
+    throwDart(myturtle)
+    if isInCircle(myturtle,0,0,0):
+      inside_count = inside_count + 1
+  approx = 4*(inside_count/number_darts)
+  return approx
+      
+  
 #########################################################
 #         Do not alter any code below here              #
 #       Your code must work with the main proivided     #
@@ -77,7 +115,7 @@ def main():
 
     # Loop for 10 darts to test your code
     for i in range(10):
-        throwDart(darty)
+      throwDart(darty)
     print("\tPart A Complete...")
     print("=========== Part B ===========")
     darty.clear()
