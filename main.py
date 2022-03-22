@@ -32,6 +32,13 @@ import time
 #                   Your Code Goes Below                #
 #########################################################
 def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
+  '''
+  Draws the outline of the square for the dartboard
+  args: myturtle- str, turtle object used to draw the square
+        width- int, length of each side of the square
+        top_left_x- int, x value of the top left of the square
+        top_left_y- int, y value of the top left of the square
+  '''
   myturtle.up()
   myturtle.goto(top_left_x,top_left_y)
   myturtle.down()
@@ -39,20 +46,43 @@ def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
     myturtle.forward(width)
     myturtle.right(90)
 def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
+  '''
+  Draws the x and y axes for the dartboard
+  args: myturtle- str, turtle object used to draw the axes
+        x_start- int, x value of where the turtle starts the line
+        y_start- int, y value of where the turtle starts the line 
+        x_end- int, x value of where the turtle ends the line
+        y_end- int, y value of where the turtle ends the line
+  '''
   myturtle.up()
   myturtle.goto(x_start,y_start)
   myturtle.down()
   myturtle.goto(x_end,y_end)
 def drawCircle(myturtle=None, radius=0):
+  '''
+  Draws the outline of the circle for the dartboard
+  args: myturtle- str, turtle object that draws the circle
+        radius- int, radius of the circle
+  '''
   myturtle.goto(0,-1)
   myturtle.circle(radius, steps=100)
 def setUpDartboard(myscreen=None, myturtle=None):
+  '''
+  Calls previous functions to set up the dartboard
+  args: myscreen- str, window where the dartboard can be seen
+        myturtle- str, turtle that draws the board
+  '''
   turtle.setworldcoordinates(-1,-1,1,1)
   drawSquare(myturtle, width=2, top_left_x=-1, top_left_y=1)
   drawLine(myturtle,-1,0,1,0)
   drawLine(myturtle,0,-1,0,1)
   drawCircle(myturtle,1)
 def throwDart(myturtle=None):
+  '''
+  Sends the turtle to a random location within the square/circle to simulate throwing a dart, dot is blue if the turtle is in the circle and red if the turtle is outside of the circle
+  args: myturtle- str, used to simulate the action of throwing a dart
+  return: boolean expression depending on whether the dot is inside the circle or not
+  '''
   x = random.uniform(-1,1)
   y = random.uniform(-1,1)
   myturtle.up()
@@ -62,11 +92,23 @@ def throwDart(myturtle=None):
   else:
     myturtle.dot('red')
 def isInCircle(myturtle=None, circle_center_x=0, circle_center_y=0, radius=0):
+  '''
+  Determines if the dot is inside the circle 
+  args: myturtle- str, turtle object that makes the dots
+        circle_center_x- int, x value of the center of the circle 
+        circle_center_y- int, y value of the center of the circle 
+        radius- int, radius of the circle 
+  return: boolean, true if the turtle is in the circle and false if not
+  '''
   if myturtle.distance(circle_center_x,circle_center_y) <= 1:
     return True
   else:
     return False
 def playDarts(myturtle=None):
+  '''
+  Simulates a game of darts between two players where each player has 10 shots
+  args: myturtle- str, turtle object used to simulate the game of darts
+  '''
   accum_1 = 0
   accum_2 = 0
   for i in range(10):
@@ -83,6 +125,12 @@ def playDarts(myturtle=None):
   elif accum_1 == accum_2:
     print('The Game is a Tie!')
 def montePi(myturtle=None, number_darts=0):
+  '''
+  Estimates the value of pi using the ration of the area of the circle to the area of the square
+  args: myturtle- str, creates the dots for the simulation
+        number_darts- int, user inputs the number of darts to be used for the approximation
+  return: int, returns approximation of pi
+  '''
   inside_count = 0
   for i in range(number_darts):
     throwDart(myturtle)
